@@ -17,13 +17,120 @@ function getComputerChoice() {
 }
 
 
-
+/* Ahora el usuario ya no selecciona por prompt, sino boton
 function getHumanChoice(){
     let simbolo = prompt("Elige un símbolo. agua, planta o fuego");
     return simbolo.toLowerCase();
     }
+*/
 
 
+const agua = document.querySelector("#agua");
+const planta = document.querySelector("#planta");
+const fuego = document.querySelector("#fuego");
+
+const result = document.querySelector("#resultado");
+const marcador = document.querySelector("#marcador");
+
+
+agua.addEventListener("click", () => {
+    playRound("agua")
+});
+planta.addEventListener("click", () => {
+    playRound("planta")
+} );
+fuego.addEventListener("click", () => {
+    playRound("fuego")
+});
+
+
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+
+    console.log("Tu elección: ", humanChoice);
+    console.log("Elección de la máquina: ", computerChoice);
+
+    let resultado = ""
+
+    if (humanChoice === "agua"){
+        if (computerChoice === "agua"){
+            resultado = "EMPATE";
+        }
+        else if (computerChoice === "planta"){
+            resultado = "PIERDES";
+            puntMaquina++;
+        }
+        else if (computerChoice === "fuego"){
+            resultado = "GANAS";
+            puntHumano++;
+        }
+        else {
+            resultado = "ALGO HA SALIDO MAL";
+        }
+    }
+    else if (humanChoice === "planta"){
+        if(computerChoice === "agua"){
+            resultado = "GANAS";
+            puntHumano++;
+        }
+        else if (computerChoice === "planta"){
+            resultado = "EMPATAS";
+        }
+        else if (computerChoice === "fuego"){
+            resultado = "PIERDES";
+            puntMaquina++;
+        }
+        else {
+            resultado = "ALGO HA SALIDO MAL";
+        }
+    }
+    else if (humanChoice === "fuego"){
+        if (computerChoice === "agua"){
+            resultado = "PIERDES";
+            puntMaquina++;
+        }
+        else if (computerChoice === "fuego"){
+            resultado = "EMPATE";
+        }
+        else if (computerChoice === "planta"){
+            resultado = "GANAS";
+            puntHumano++;
+        }
+        else {
+            resultado = "ALGO HA SALIDO MAL";
+        }
+    }
+    else {
+        resultado = "ALGO HA SALIDO MAL";
+    }
+
+    result.textContent = "Resultado: " + resultado;
+    marcador.textContent = "Tus puntos: " + puntHumano + " | Máquina: " + puntMaquina;
+
+    if(puntHumano === 5){
+        alert("Has ganado la partida!");
+        location.reload();
+    }
+    else if(puntMaquina === 5){
+        alert("Has perdido la partida!");
+        location.reload();
+    }
+
+
+}
+
+
+let puntHumano = 0;
+let puntMaquina = 0;
+
+
+
+
+
+
+
+
+/* Voy a crear otra funcion de cero
 function ganador(){
 
     const humano = getHumanChoice();
@@ -79,12 +186,15 @@ function ganador(){
     }
     
 }
-
-let puntHumano = 0;
-let puntMaquina = 0;
+*/
 
 
 
+
+
+
+
+/* DESACTIVO LO QUE HACE QUE LLEGUE A 5 RONDAS
 for (let i = 0; i < 5; i++){
     console.log("Ronda " + (i+1));
     const resultado = ganador();
@@ -107,6 +217,8 @@ else if (puntHumano === puntMaquina){
 else if (puntHumano < puntMaquina){
     console.log("HAS PERDIDO LA PARTIDA")
 }
+*/
+
 
 
 
